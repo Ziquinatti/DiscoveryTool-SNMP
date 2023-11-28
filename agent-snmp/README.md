@@ -13,10 +13,10 @@ Testei no WSL Ubuntu
 * pysnmp      -> Biblioteca Python do agente;
 
 
-### Algumas Observaçoes:
+### Algumas Observações:
 Tive que alterar o ID da MIB para 5, então ficou:
 
-`~~::= { experimental 1 }~~ -> ::= { experimental 5 }`
+~~::= { experimental 1 }~~ -> ::= { experimental 5 }
 
 Os status estavam apresentando erro, então coloquei todos como `current`;
 
@@ -47,9 +47,7 @@ Dentro da pasta "agent-snmp" execute o seguinte comando:
 python mibdump.py --mib-source=/home/<user-folder>/agent-snmp/mibs_folder --destination-directory=/home/<user-folder>/agent-snmp --destination-format=pysnmp FERRAMENTA-DE-DESCOBERTA-MIB
 ```
 
-Após concluir a compilação, deverá aparecer um arquivo como no nome:
-
-`FERRAMENTA-DE-DESCOBERTA-MIB.py`
+Após concluir a compilação, deverá aparecer um arquivo como no nome: `FERRAMENTA-DE-DESCOBERTA-MIB.py`
 
 
 
@@ -58,15 +56,17 @@ Após concluir a compilação, deverá aparecer um arquivo como no nome:
 Certifique-se que a porta 161 está livre.
 Caso esteja ocupada, edite o script do agente na linha 60:
 
-```config.addSocketTransport(self._snmpEngine, udp.domainName, udp.UdpTransport().openServerMode(('', <NOVA-PORTA>)))```
+```
+config.addSocketTransport(self._snmpEngine, udp.domainName, udp.UdpTransport().openServerMode(('', <NOVA-PORTA>)))
+```
 
 Com a MIB compilada e a porta livre, execute:
 
-```sudo python agent_snmp.py```
+```
+sudo python agent_snmp.py
+```
 
-Se tudo ocorreu certo, a seguinte mensagem aparecerá no terminal:
-
-`Starting agent`
+Se tudo ocorreu certo, a seguinte mensagem aparecerá no terminal: `Starting agent`
 
 
 
@@ -74,11 +74,15 @@ Se tudo ocorreu certo, a seguinte mensagem aparecerá no terminal:
 
 Utilize o comando:
 
-```snmpwalk -v2c -c public localhost 1.3.6.1.3.5```
+```
+snmpwalk -v2c -c public localhost 1.3.6.1.3.5
+```
 
 Ou, caso tenha alterado a porta:
 
-```snmpwalk -v2c -c public localhost:<NOVA-PORTA> 1.3.6.1.3.5```
+```
+snmpwalk -v2c -c public localhost:<NOVA-PORTA> 1.3.6.1.3.5
+```
 
 O retorno deve ser:
 
